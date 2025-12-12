@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Buttons Only</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .ad-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .ad-btn {
+            padding: 25px 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(145deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-btn::before {
+            content: 'AD';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+        
+        .ad-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
+            background: linear-gradient(145deg, #ff4b2b, #ff416c);
+        }
+        
+        .ad-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .ad-btn:nth-child(2) {
+            background: linear-gradient(145deg, #36d1dc, #5b86e5);
+            box-shadow: 0 5px 15px rgba(91, 134, 229, 0.3);
+        }
+        
+        .ad-btn:nth-child(2):hover {
+            background: linear-gradient(145deg, #5b86e5, #36d1dc);
+            box-shadow: 0 10px 25px rgba(91, 134, 229, 0.5);
+        }
+        
+        .ad-btn:nth-child(3) {
+            background: linear-gradient(145deg, #834d9b, #d04ed6);
+            box-shadow: 0 5px 15px rgba(208, 78, 214, 0.3);
+        }
+        
+        .ad-btn:nth-child(3):hover {
+            background: linear-gradient(145deg, #d04ed6, #834d9b);
+            box-shadow: 0 10px 25px rgba(208, 78, 214, 0.5);
+        }
+        
+        .ad-btn:nth-child(4) {
+            background: linear-gradient(145deg, #11998e, #38ef7d);
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.3);
+        }
+        
+        .ad-btn:nth-child(4):hover {
+            background: linear-gradient(145deg, #38ef7d, #11998e);
+            box-shadow: 0 10px 25px rgba(56, 239, 125, 0.5);
+        }
+        
+        .ad-btn:nth-child(5) {
+            background: linear-gradient(145deg, #ff8008, #ffc837);
+            box-shadow: 0 5px 15px rgba(255, 192, 55, 0.3);
+        }
+        
+        .ad-btn:nth-child(5):hover {
+            background: linear-gradient(145deg, #ffc837, #ff8008);
+            box-shadow: 0 10px 25px rgba(255, 192, 55, 0.5);
+        }
+        
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            color: white;
+            font-size: 1.1rem;
+            border-left: 4px solid #ff416c;
+        }
+        
+        .status span {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+        
+        .counter {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 600px) {
+            .ad-buttons {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .ad-btn {
+                padding: 20px 10px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ADVERTISEMENT BUTTONS</h1>
+        
+        <div class="ad-buttons">
+            <button class="ad-btn" onclick="adClicked(1)">Ad 1</button>
+            <button class="ad-btn" onclick="adClicked(2)">Ad 2</button>
+            <button class="ad-btn" onclick="adClicked(3)">Ad 3</button>
+            <button class="ad-btn" onclick="adClicked(4)">Ad 4</button>
+            <button class="ad-btn" onclick="adClicked(5)">Ad 5</button>
+        </div>
+        
+        <div class="status">
+            <p>Status: <span id="statusText">No ad clicked yet</span></p>
+        </div>
+        
+        <div class="counter">
+            <p>Total clicks: <span id="clickCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        
+        function adClicked(adNumber) {
+            clickCount++;
+            document.getElementById('clickCount').textContent = clickCount;
+            
+            const statusMessages = [
+                `Ad ${adNumber}: Loading promotional content...`,
+                `Ad ${adNumber}: Displaying advertisement...`,
+                `Ad ${adNumber}: Showing special offer!`,
+                `Ad ${adNumber}: Commercial break in progress`,
+                `Ad ${adNumber}: Sponsored content displayed`
+            ];
+            
+            const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
+            document.getElementById('statusText').textContent = randomMessage;
+            
+            // Visual feedback
+            const button = document.querySelector(`.ad-btn:nth-child(${adNumber})`);
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+            
+            // Log to console
+            console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
+        }
+    </script>
+</body>
+</html>

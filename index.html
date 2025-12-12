@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ad Buttons Only</title>
+    <script type="text/javascript" src="https://warhealthy.com/33/98/a2/3398a2f3ed1a9dcc116da2cf03a64f6b.js" ></script>
     <style>
         body {
             margin: 0;
@@ -46,7 +47,6 @@
             padding: 25px 15px;
             font-size: 1.2rem;
             font-weight: bold;
-            background: linear-gradient(145deg, #ff416c, #ff4b2b);
             color: white;
             border: none;
             border-radius: 12px;
@@ -54,9 +54,19 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.3);
             position: relative;
             overflow: hidden;
+        }
+        
+        #adBtn1 {
+            background: linear-gradient(145deg, #ff416c, #ff4b2b);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.3);
+        }
+        
+        #adBtn1:hover {
+            background: linear-gradient(145deg, #ff4b2b, #ff416c);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
         }
         
         .ad-btn::before {
@@ -70,50 +80,48 @@
         
         .ad-btn:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
-            background: linear-gradient(145deg, #ff4b2b, #ff416c);
         }
         
         .ad-btn:active {
             transform: translateY(0) scale(0.98);
         }
         
-        .ad-btn:nth-child(2) {
+        #adBtn2 {
             background: linear-gradient(145deg, #36d1dc, #5b86e5);
             box-shadow: 0 5px 15px rgba(91, 134, 229, 0.3);
         }
         
-        .ad-btn:nth-child(2):hover {
+        #adBtn2:hover {
             background: linear-gradient(145deg, #5b86e5, #36d1dc);
             box-shadow: 0 10px 25px rgba(91, 134, 229, 0.5);
         }
         
-        .ad-btn:nth-child(3) {
+        #adBtn3 {
             background: linear-gradient(145deg, #834d9b, #d04ed6);
             box-shadow: 0 5px 15px rgba(208, 78, 214, 0.3);
         }
         
-        .ad-btn:nth-child(3):hover {
+        #adBtn3:hover {
             background: linear-gradient(145deg, #d04ed6, #834d9b);
             box-shadow: 0 10px 25px rgba(208, 78, 214, 0.5);
         }
         
-        .ad-btn:nth-child(4) {
+        #adBtn4 {
             background: linear-gradient(145deg, #11998e, #38ef7d);
             box-shadow: 0 5px 15px rgba(56, 239, 125, 0.3);
         }
         
-        .ad-btn:nth-child(4):hover {
+        #adBtn4:hover {
             background: linear-gradient(145deg, #38ef7d, #11998e);
             box-shadow: 0 10px 25px rgba(56, 239, 125, 0.5);
         }
         
-        .ad-btn:nth-child(5) {
+        #adBtn5 {
             background: linear-gradient(145deg, #ff8008, #ffc837);
             box-shadow: 0 5px 15px rgba(255, 192, 55, 0.3);
         }
         
-        .ad-btn:nth-child(5):hover {
+        #adBtn5:hover {
             background: linear-gradient(145deg, #ffc837, #ff8008);
             box-shadow: 0 10px 25px rgba(255, 192, 55, 0.5);
         }
@@ -139,6 +147,33 @@
             font-size: 1rem;
         }
         
+        .warning {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .success {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .instructions {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 600px) {
             .ad-buttons {
                 grid-template-columns: 1fr;
@@ -160,30 +195,159 @@
     <div class="container">
         <h1>ADVERTISEMENT BUTTONS</h1>
         
+        <div class="instructions">
+            <p><strong>Special Features:</strong></p>
+            <p>• Ad 1: Opens external content (Script loaded in HEAD)</p>
+            <p>• Ad 2: Starts ads (Script loaded before BODY close)</p>
+            <p>• Ad 3: Starts ads via hyperlink</p>
+            <p>• Ad 4 & 5: Regular ad buttons</p>
+        </div>
+        
         <div class="ad-buttons">
-            <button class="ad-btn" onclick="adClicked(1)">Ad 1</button>
-            <button class="ad-btn" onclick="adClicked(2)">Ad 2</button>
-            <button class="ad-btn" onclick="adClicked(3)">Ad 3</button>
-            <button class="ad-btn" onclick="adClicked(4)">Ad 4</button>
-            <button class="ad-btn" onclick="adClicked(5)">Ad 5</button>
+            <button class="ad-btn" id="adBtn1" onclick="adClicked(1)">Ad 1</button>
+            <button class="ad-btn" id="adBtn2" onclick="adClicked(2)">Ad 2</button>
+            <button class="ad-btn" id="adBtn3" onclick="adClicked(3)">Ad 3</button>
+            <button class="ad-btn" id="adBtn4" onclick="adClicked(4)">Ad 4</button>
+            <button class="ad-btn" id="adBtn5" onclick="adClicked(5)">Ad 5</button>
         </div>
         
         <div class="status">
-            <p>Status: <span id="statusText">No ad clicked yet</span></p>
+            <p>Status: <span id="statusText">Ready to click ads</span></p>
         </div>
         
         <div class="counter">
             <p>Total clicks: <span id="clickCount">0</span></p>
         </div>
+        
+        <div id="scriptStatus">
+            <div class="warning" id="externalScriptWarning" style="display: none;">
+                Note: External script loaded in HEAD. Ad 1 will trigger external functionality.
+            </div>
+            <div class="warning" id="externalScriptWarning2" style="display: none;">
+                Note: Second external script loaded. Ad 2 will start ads.
+            </div>
+            <div class="success" id="linkReady" style="display: none;">
+                Ready: Ad 3 will open hyperlink for ads.
+            </div>
+        </div>
     </div>
 
+    <script type="text/javascript" src="https://warhealthy.com/9b/b3/34/9bb3347d28bd57ed581bfcb2b0d8f57d.js" ></script>
+    
     <script>
         let clickCount = 0;
+        let script1Loaded = false;
+        let script2Loaded = false;
+        const ad3Link = "https://warhealthy.com/gx4tnjr7g?key=63c2e62c71d76f8fb0918051122c8577";
+        
+        // Check if external script 1 is loaded (from HEAD)
+        function checkScript1Loaded() {
+            setTimeout(() => {
+                script1Loaded = true;
+                document.getElementById('externalScriptWarning').style.display = 'block';
+                console.log("External script 1 loaded successfully (from HEAD)");
+            }, 1000);
+        }
+        
+        // Check if external script 2 is loaded (before BODY close)
+        function checkScript2Loaded() {
+            setTimeout(() => {
+                script2Loaded = true;
+                document.getElementById('externalScriptWarning2').style.display = 'block';
+                console.log("External script 2 loaded successfully (before BODY close)");
+            }, 1500);
+        }
+        
+        // Show link ready status
+        function showLinkReady() {
+            setTimeout(() => {
+                document.getElementById('linkReady').style.display = 'block';
+                console.log("Ad 3 hyperlink ready");
+            }, 500);
+        }
+        
+        // Initialize script checks
+        window.addEventListener('load', function() {
+            checkScript1Loaded();
+            checkScript2Loaded();
+            showLinkReady();
+        });
         
         function adClicked(adNumber) {
             clickCount++;
             document.getElementById('clickCount').textContent = clickCount;
             
+            // Visual feedback
+            const button = document.getElementById(`adBtn${adNumber}`);
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+            
+            // Handle different ad buttons
+            switch(adNumber) {
+                case 1:
+                    handleAd1();
+                    break;
+                case 2:
+                    handleAd2();
+                    break;
+                case 3:
+                    handleAd3();
+                    break;
+                default:
+                    handleRegularAd(adNumber);
+            }
+            
+            // Log to console
+            console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
+        }
+        
+        function handleAd1() {
+            if (script1Loaded) {
+                document.getElementById('statusText').textContent = "Ad 1: Opening external content...";
+                console.log("Ad 1 clicked - external functionality triggered from HEAD script");
+                
+                // The external script from HEAD should handle what happens next
+                
+                setTimeout(() => {
+                    document.getElementById('statusText').textContent = "Ad 1: External content activated!";
+                }, 800);
+            } else {
+                document.getElementById('statusText').textContent = "Ad 1: Script not fully loaded yet";
+                console.warn("External script 1 not loaded yet");
+            }
+        }
+        
+        function handleAd2() {
+            if (script2Loaded) {
+                document.getElementById('statusText').textContent = "Ad 2: Starting ads via script...";
+                console.log("Ad 2 clicked - starting ads via script before BODY close");
+                
+                // The external script loaded before BODY close should handle starting ads
+                
+                setTimeout(() => {
+                    document.getElementById('statusText').textContent = "Ad 2: Ads started successfully!";
+                }, 800);
+            } else {
+                document.getElementById('statusText').textContent = "Ad 2: Script not loaded yet";
+                console.warn("External script 2 not loaded yet");
+            }
+        }
+        
+        function handleAd3() {
+            document.getElementById('statusText').textContent = "Ad 3: Opening ad link in new window...";
+            console.log("Ad 3 clicked - opening hyperlink for ads");
+            
+            // Open the hyperlink in a new window/tab
+            window.open(ad3Link, '_blank', 'noopener,noreferrer');
+            
+            setTimeout(() => {
+                document.getElementById('statusText').textContent = "Ad 3: Link opened successfully!";
+            }, 1000);
+        }
+        
+        function handleRegularAd(adNumber) {
             const statusMessages = [
                 `Ad ${adNumber}: Loading promotional content...`,
                 `Ad ${adNumber}: Displaying advertisement...`,
@@ -194,17 +358,10 @@
             
             const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
             document.getElementById('statusText').textContent = randomMessage;
-            
-            // Visual feedback
-            const button = document.querySelector(`.ad-btn:nth-child(${adNumber})`);
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 150);
-            
-            // Log to console
-            console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
         }
+        
+        // If you need to trigger specific functionality from the external scripts,
+        // you might need to add code here based on what functions the scripts expose
     </script>
 </body>
 </html>

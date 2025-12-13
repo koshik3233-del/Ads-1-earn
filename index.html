@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="monetag" content="598db377fc3070ce4e7925807b188e3d">
     <title>Single Ad Button</title>
-    <script>(function(s){s.dataset.zone='10317024',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <style>
         body {
             margin: 0;
@@ -161,7 +160,7 @@
         <h1>ADVERTISEMENT BUTTONS</h1>
         
         <div class="ad-buttons">
-            <button class="ad-btn" onclick="adClicked(1)">Ad 1</button>
+            <button class="ad-btn" onclick="startAd(1)">Ad 1</button>
             <div class="removed-btn">Ad 2</div>
             <div class="removed-btn">Ad 3</div>
             <div class="removed-btn">Ad 4</div>
@@ -183,10 +182,17 @@
 
     <script>
         let clickCount = 0;
+        let adScriptLoaded = false;
         
-        function adClicked(adNumber) {
+        function startAd(adNumber) {
             clickCount++;
             document.getElementById('clickCount').textContent = clickCount;
+            
+            // Load and execute the ad script when Ad 1 is clicked
+            if (!adScriptLoaded) {
+                loadAdScript();
+                adScriptLoaded = true;
+            }
             
             const statusMessages = [
                 `Ad ${adNumber}: Loading promotional content...`,
@@ -209,6 +215,32 @@
             // Log to console
             console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
         }
+        
+        function loadAdScript() {
+            try {
+                // Create and load the ad script
+                const script = document.createElement('script');
+                script.dataset.zone = '10317024';
+                script.src = 'https://al5sm.com/tag.min.js';
+                
+                // Add script to the document
+                [document.documentElement, document.body]
+                    .filter(Boolean)
+                    .pop()
+                    .appendChild(script);
+                
+                console.log('Ad script loaded successfully');
+                
+                // Update status to show ad is loading
+                setTimeout(() => {
+                    document.getElementById('statusText').textContent = 'Ad script loaded - Showing advertisement...';
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error loading ad script:', error);
+                document.getElementById('statusText').textContent = 'Error loading advertisement';
+            }
+        }
     </script>
 </body>
-    </html>
+</html>

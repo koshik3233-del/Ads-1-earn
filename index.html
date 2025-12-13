@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="monetag" content="598db377fc3070ce4e7925807b188e3d">
     <title>Single Ad Button</title>
-    <!-- This script loads when page opens -->
-    <script>(function(s){s.dataset.zone='10317024',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <style>
         body {
             margin: 0;
@@ -140,67 +138,50 @@
             padding-top: 15px;
         }
         
-        /* New styles for ad container */
-        .ad-display {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 800px;
-            height: 70vh;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 15px;
-            z-index: 1000;
-            display: none;
+        /* Smart Link Styles */
+        .smart-link-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .smart-link {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(145deg, #00c6ff, #0072ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+            position: relative;
             overflow: hidden;
-            border: 2px solid #ff416c;
-            box-shadow: 0 0 50px rgba(255, 65, 108, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .ad-header {
-            background: #ff416c;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .smart-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 114, 255, 0.5);
+            background: linear-gradient(145deg, #0072ff, #00c6ff);
         }
         
-        .close-ad {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 5px 15px;
-            border-radius: 5px;
-            transition: background 0.3s;
+        .smart-link:active {
+            transform: translateY(0) scale(0.98);
         }
         
-        .close-ad:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .ad-content {
-            width: 100%;
-            height: calc(100% - 60px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
+        .smart-link::before {
+            content: '🔗';
+            margin-right: 10px;
             font-size: 1.2rem;
         }
         
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999;
-            display: none;
+        .smart-link-subtext {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
         }
         
         @media (max-width: 600px) {
@@ -218,37 +199,31 @@
                 font-size: 1.3rem;
             }
             
-            .ad-display {
-                height: 60vh;
+            .smart-link {
+                padding: 15px 30px;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Overlay for ad background -->
-    <div class="overlay" id="adOverlay"></div>
-    
-    <!-- Ad display container -->
-    <div class="ad-display" id="adContainer">
-        <div class="ad-header">
-            <h3 style="margin: 0;">ADVERTISEMENT</h3>
-            <button class="close-ad" onclick="closeAd()">✕</button>
-        </div>
-        <div class="ad-content" id="adContent">
-            <p>Advertisement content will be displayed here...</p>
-        </div>
-    </div>
-    
-    <!-- Main content -->
     <div class="container">
         <h1>ADVERTISEMENT BUTTONS</h1>
         
         <div class="ad-buttons">
-            <button class="ad-btn" onclick="showAdvertisement(1)">Ad 1</button>
+            <button class="ad-btn" id="ad1Btn">Ad 1</button>
             <div class="removed-btn">Ad 2</div>
             <div class="removed-btn">Ad 3</div>
             <div class="removed-btn">Ad 4</div>
             <div class="removed-btn">Ad 5</div>
+        </div>
+        
+        <!-- SMART LINK ADDED HERE -->
+        <div class="smart-link-container">
+            <a href="https://otieu.com/4/10317084" class="smart-link" target="_blank" id="smartLink">
+                SMART AD LINK
+            </a>
+            <p class="smart-link-subtext">Click to open advertisement in new tab</p>
         </div>
         
         <div class="status">
@@ -261,77 +236,80 @@
         
         <div class="info">
             <p>Note: Only Ad 1 is active. Other ad buttons have been removed.</p>
+            <p style="margin-top: 10px;">Smart link will open advertisement content in a new tab</p>
         </div>
     </div>
 
     <script>
         let clickCount = 0;
+        let adClicks = 0;
+        let smartLinkClicks = 0;
         
-        function showAdvertisement(adNumber) {
+        // Ad 1 button functionality
+        document.getElementById('ad1Btn').addEventListener('click', function() {
             clickCount++;
-            document.getElementById('clickCount').textContent = clickCount;
+            adClicks++;
+            updateCounters();
             
             const statusMessages = [
-                `Ad ${adNumber}: Loading promotional content...`,
-                `Ad ${adNumber}: Displaying advertisement...`,
-                `Ad ${adNumber}: Showing special offer!`,
-                `Ad ${adNumber}: Commercial break in progress`,
-                `Ad ${adNumber}: Sponsored content displayed`
+                "Ad 1: Loading promotional content...",
+                "Ad 1: Displaying advertisement...",
+                "Ad 1: Showing special offer!",
+                "Ad 1: Commercial break in progress",
+                "Ad 1: Sponsored content displayed"
             ];
             
             const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
             document.getElementById('statusText').textContent = randomMessage;
             
-            // Show the ad container
-            document.getElementById('adOverlay').style.display = 'block';
-            document.getElementById('adContainer').style.display = 'block';
-            
-            // Update ad content
-            const adContent = document.getElementById('adContent');
-            adContent.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <h2 style="color: #ffcc00; margin-bottom: 20px;">ADVERTISEMENT ACTIVE</h2>
-                    <p style="margin-bottom: 15px;">Ad #${adNumber} is now displaying</p>
-                    <p style="margin-bottom: 15px;">Monetag: 598db377fc3070ce4e7925807b188e3d</p>
-                    <p style="margin-bottom: 15px;">Zone: 10317024</p>
-                    <div style="background: #222; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <p style="font-size: 0.9rem; color: #aaa;">Ad script loaded from: https://al5sm.com/tag.min.js</p>
-                    </div>
-                </div>
-            `;
-            
-            // Visual feedback on button
-            const button = document.querySelector('.ad-btn');
-            button.style.transform = 'scale(0.95)';
+            // Visual feedback
+            this.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                button.style.transform = '';
+                this.style.transform = '';
             }, 150);
             
-            // Log to console
-            console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
-            console.log('Ad script already loaded on page open');
-        }
-        
-        function closeAd() {
-            document.getElementById('adOverlay').style.display = 'none';
-            document.getElementById('adContainer').style.display = 'none';
-            document.getElementById('statusText').textContent = 'Advertisement closed';
-        }
-        
-        // Close ad when clicking on overlay
-        document.getElementById('adOverlay').addEventListener('click', closeAd);
-        
-        // Prevent closing when clicking inside ad container
-        document.getElementById('adContainer').addEventListener('click', function(e) {
-            e.stopPropagation();
+            console.log(`Ad 1 clicked. Total clicks: ${clickCount}, Ad clicks: ${adClicks}`);
         });
         
-        // Log when page loads (ad script loads)
-        window.addEventListener('load', function() {
-            console.log('Page loaded - ad script automatically executed');
-            console.log('Monetag: 598db377fc3070ce4e7925807b188e3d');
-            console.log('Zone ID: 10317024');
+        // Smart link functionality
+        document.getElementById('smartLink').addEventListener('click', function(e) {
+            clickCount++;
+            smartLinkClicks++;
+            updateCounters();
+            
+            const statusMessages = [
+                "Smart Link: Opening advertisement...",
+                "Smart Link: Loading promotional content...",
+                "Smart Link: Redirecting to special offer!",
+                "Smart Link: Showing sponsored content",
+                "Smart Link: Commercial content loading..."
+            ];
+            
+            const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
+            document.getElementById('statusText').textContent = randomMessage;
+            
+            // Visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            console.log(`Smart link clicked. Total clicks: ${clickCount}, Smart link clicks: ${smartLinkClicks}`);
+            
+            // The link will open in new tab automatically (target="_blank")
+            // Optional: You can add tracking or analytics here
         });
+        
+        function updateCounters() {
+            document.getElementById('clickCount').textContent = clickCount;
+            
+            // Update info text to show breakdown
+            const infoElement = document.querySelector('.info');
+            const originalInfo = '<p>Note: Only Ad 1 is active. Other ad buttons have been removed.</p><p style="margin-top: 10px;">Smart link will open advertisement content in a new tab</p>';
+            const statsInfo = `<p>Ad 1 clicks: ${adClicks} | Smart link clicks: ${smartLinkClicks}</p>`;
+            
+            infoElement.innerHTML = originalInfo + statsInfo;
+        }
     </script>
 </body>
-            </html>
+                                                                                                    </html>

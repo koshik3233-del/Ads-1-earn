@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="monetag" content="598db377fc3070ce4e7925807b188e3d">
     <title>Single Ad Button</title>
+    <!-- This script loads when page opens -->
+    <script>(function(s){s.dataset.zone='10317024',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <style>
         body {
             margin: 0;
@@ -138,6 +140,69 @@
             padding-top: 15px;
         }
         
+        /* New styles for ad container */
+        .ad-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            height: 70vh;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+            border: 2px solid #ff416c;
+            box-shadow: 0 0 50px rgba(255, 65, 108, 0.5);
+        }
+        
+        .ad-header {
+            background: #ff416c;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-ad {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .close-ad:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .ad-content {
+            width: 100%;
+            height: calc(100% - 60px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            display: none;
+        }
+        
         @media (max-width: 600px) {
             .ad-buttons {
                 flex-direction: column;
@@ -152,15 +217,34 @@
                 padding: 20px;
                 font-size: 1.3rem;
             }
+            
+            .ad-display {
+                height: 60vh;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Overlay for ad background -->
+    <div class="overlay" id="adOverlay"></div>
+    
+    <!-- Ad display container -->
+    <div class="ad-display" id="adContainer">
+        <div class="ad-header">
+            <h3 style="margin: 0;">ADVERTISEMENT</h3>
+            <button class="close-ad" onclick="closeAd()">✕</button>
+        </div>
+        <div class="ad-content" id="adContent">
+            <p>Advertisement content will be displayed here...</p>
+        </div>
+    </div>
+    
+    <!-- Main content -->
     <div class="container">
         <h1>ADVERTISEMENT BUTTONS</h1>
         
         <div class="ad-buttons">
-            <button class="ad-btn" onclick="startAd(1)">Ad 1</button>
+            <button class="ad-btn" onclick="showAdvertisement(1)">Ad 1</button>
             <div class="removed-btn">Ad 2</div>
             <div class="removed-btn">Ad 3</div>
             <div class="removed-btn">Ad 4</div>
@@ -182,17 +266,10 @@
 
     <script>
         let clickCount = 0;
-        let adScriptLoaded = false;
         
-        function startAd(adNumber) {
+        function showAdvertisement(adNumber) {
             clickCount++;
             document.getElementById('clickCount').textContent = clickCount;
-            
-            // Load and execute the ad script when Ad 1 is clicked
-            if (!adScriptLoaded) {
-                loadAdScript();
-                adScriptLoaded = true;
-            }
             
             const statusMessages = [
                 `Ad ${adNumber}: Loading promotional content...`,
@@ -205,7 +282,25 @@
             const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
             document.getElementById('statusText').textContent = randomMessage;
             
-            // Visual feedback
+            // Show the ad container
+            document.getElementById('adOverlay').style.display = 'block';
+            document.getElementById('adContainer').style.display = 'block';
+            
+            // Update ad content
+            const adContent = document.getElementById('adContent');
+            adContent.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h2 style="color: #ffcc00; margin-bottom: 20px;">ADVERTISEMENT ACTIVE</h2>
+                    <p style="margin-bottom: 15px;">Ad #${adNumber} is now displaying</p>
+                    <p style="margin-bottom: 15px;">Monetag: 598db377fc3070ce4e7925807b188e3d</p>
+                    <p style="margin-bottom: 15px;">Zone: 10317024</p>
+                    <div style="background: #222; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="font-size: 0.9rem; color: #aaa;">Ad script loaded from: https://al5sm.com/tag.min.js</p>
+                    </div>
+                </div>
+            `;
+            
+            // Visual feedback on button
             const button = document.querySelector('.ad-btn');
             button.style.transform = 'scale(0.95)';
             setTimeout(() => {
@@ -214,33 +309,29 @@
             
             // Log to console
             console.log(`Ad ${adNumber} button clicked. Total clicks: ${clickCount}`);
+            console.log('Ad script already loaded on page open');
         }
         
-        function loadAdScript() {
-            try {
-                // Create and load the ad script
-                const script = document.createElement('script');
-                script.dataset.zone = '10317024';
-                script.src = 'https://al5sm.com/tag.min.js';
-                
-                // Add script to the document
-                [document.documentElement, document.body]
-                    .filter(Boolean)
-                    .pop()
-                    .appendChild(script);
-                
-                console.log('Ad script loaded successfully');
-                
-                // Update status to show ad is loading
-                setTimeout(() => {
-                    document.getElementById('statusText').textContent = 'Ad script loaded - Showing advertisement...';
-                }, 500);
-                
-            } catch (error) {
-                console.error('Error loading ad script:', error);
-                document.getElementById('statusText').textContent = 'Error loading advertisement';
-            }
+        function closeAd() {
+            document.getElementById('adOverlay').style.display = 'none';
+            document.getElementById('adContainer').style.display = 'none';
+            document.getElementById('statusText').textContent = 'Advertisement closed';
         }
+        
+        // Close ad when clicking on overlay
+        document.getElementById('adOverlay').addEventListener('click', closeAd);
+        
+        // Prevent closing when clicking inside ad container
+        document.getElementById('adContainer').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Log when page loads (ad script loads)
+        window.addEventListener('load', function() {
+            console.log('Page loaded - ad script automatically executed');
+            console.log('Monetag: 598db377fc3070ce4e7925807b188e3d');
+            console.log('Zone ID: 10317024');
+        });
     </script>
 </body>
-</html>
+            </html>
